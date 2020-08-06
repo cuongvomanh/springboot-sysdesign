@@ -1,17 +1,23 @@
 package com.mycompany.mygroup.core.usecase.account;
 
-import com.mycompany.mygroup.core.infradi.DependencyResolver;
 import com.mycompany.mygroup.core.usecase.RequestModel;
 import com.mycompany.mygroup.core.usecase.ResponseModel;
 import junit.framework.TestCase;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.management.InstanceNotFoundException;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class BankAccountBoundaryTest extends TestCase {
-    private BankAccountBoundary bankAccountBoundary = (BankAccountBoundary) DependencyResolver.getInstance("BankAccountBoundary");
+    @Autowired
+    private BankAccountBoundary bankAccountBoundary;
     private final String WITHDRAW_SUCCESSFUL = "Withdraw Successful!";
     private final String WITHDRAW_FAILED = "Withdraw Failed!";
     private final String DEPOSIT_SUCCESSFUL = "Deposit Successful!";
@@ -28,9 +34,8 @@ public class BankAccountBoundaryTest extends TestCase {
         put(200, DEPOSIT_SUCCESSFUL);
     }};
 
-    public BankAccountBoundaryTest() throws InstanceNotFoundException {
-    }
 
+    @Test
     public void testWithdraw() {
         for (Map.Entry<Integer, String> entry : withdrawTestCaseMap.entrySet()) {
             // Setup
@@ -42,6 +47,7 @@ public class BankAccountBoundaryTest extends TestCase {
         }
     }
 
+    @Test
     public void testDeposit() {
         for (Map.Entry<Integer, String> entry : depositTestCaseMap.entrySet()) {
             // Setup

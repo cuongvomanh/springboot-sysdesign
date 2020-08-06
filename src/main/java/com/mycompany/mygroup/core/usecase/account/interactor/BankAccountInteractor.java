@@ -7,9 +7,11 @@ import com.mycompany.mygroup.core.usecase.RequestModel;
 import com.mycompany.mygroup.core.usecase.ResponseModel;
 import com.mycompany.mygroup.core.usecase.account.BankAccountBoundary;
 import com.mycompany.mygroup.core.usecase.account.BankAccountPresentBoundary;
+import org.springframework.stereotype.Service;
 
 import javax.management.InstanceNotFoundException;
 
+@Service
 public class BankAccountInteractor implements BankAccountBoundary {
     private BankAccountGateway bankAccountGateway;
     private BankAccountPresentBoundary bankAccountPresentBoundary;

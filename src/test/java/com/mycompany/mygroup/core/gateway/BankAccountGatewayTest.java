@@ -3,12 +3,14 @@ package com.mycompany.mygroup.core.gateway;
 import com.mycompany.mygroup.core.entity.BankAccount;
 import com.mycompany.mygroup.core.infradi.DependencyResolver;
 import junit.framework.TestCase;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.management.InstanceNotFoundException;
 import java.math.BigDecimal;
 
 public class BankAccountGatewayTest extends TestCase {
-    private BankAccountGateway bankAccountGateway = (BankAccountGateway) DependencyResolver.getInstance("BankAccountGateway");
+    @Autowired
+    private BankAccountGateway bankAccountGateway;
     private BankAccount bankAccount;
     public BankAccountGatewayTest() throws InstanceNotFoundException {
     }

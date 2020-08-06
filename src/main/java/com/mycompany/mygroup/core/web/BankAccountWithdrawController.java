@@ -1,33 +1,36 @@
 package com.mycompany.mygroup.core.web;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mycompany.mygroup.core.infradi.DependencyResolver;
 import com.mycompany.mygroup.core.usecase.RequestModel;
 import com.mycompany.mygroup.core.usecase.ResponseModel;
 import com.mycompany.mygroup.core.usecase.account.BankAccountBoundary;
 import com.mycompany.mygroup.core.web.utils.FormUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.management.InstanceNotFoundException;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/bankAccount/withdraw"})
-public class BankAccountWithdrawController extends HttpServlet implements IBankAccountController {
-    private static final long serialVersionUID = 2686801510274002166L;
+@RestController
+@RequestMapping("/bankAccount/withdraw")
+public class BankAccountWithdrawController implements IBankAccountController {
+    @Autowired
     private BankAccountBoundary bankAccountBoundary;
 
-    public BankAccountWithdrawController() throws InstanceNotFoundException {
-        this.bankAccountBoundary = (BankAccountBoundary) DependencyResolver.getInstance("BankAccountBoundary");
+    public BankAccountWithdrawController(BankAccountBoundary bankAccountBoundary) throws InstanceNotFoundException {
+        this.bankAccountBoundary = bankAccountBoundary;
     }
 
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestModel requestModel = FormUtil.toModel(RequestModel.class, request);
+    @PostMapping
+    public ResponseEntity<ResponseModel> doPost(@RequestBody RequestModel requestModel) throws ServletException, IOException {
         ResponseModel responseModel = this.bankAccountBoundary.withdraw(requestModel);
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValue(response.getOutputStream(), responseModel);
+        return ResponseEntity.ok()
+            .body(responseModel);
     }
 }

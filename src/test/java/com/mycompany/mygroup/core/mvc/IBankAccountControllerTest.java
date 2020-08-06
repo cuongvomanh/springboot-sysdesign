@@ -3,6 +3,7 @@ package com.mycompany.mygroup.core.mvc;
 import com.mycompany.mygroup.core.infradi.DependencyResolver;
 import com.mycompany.mygroup.core.usecase.ResponseModel;
 import junit.framework.TestCase;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.management.InstanceNotFoundException;
 import java.math.BigDecimal;
@@ -10,7 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class IBankAccountControllerTest extends TestCase {
-    private IBankAccountController controller = (IBankAccountController) DependencyResolver.getInstance("IBankAccountController");
+    @Autowired
+    private IBankAccountController controller;
     private final String SUCCESSFUL_PATTERN = ".*Success.*|200";
     private final String FAILED_PATTERN = ".*Failed.*|200";
     private final HashMap<Integer, String> withdrawTestCaseMap = new HashMap<Integer, String>() {{
