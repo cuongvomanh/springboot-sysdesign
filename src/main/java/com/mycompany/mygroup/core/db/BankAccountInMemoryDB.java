@@ -2,12 +2,16 @@ package com.mycompany.mygroup.core.db;
 
 import com.mycompany.mygroup.core.entity.BankAccount;
 import com.mycompany.mygroup.core.gateway.BankAccountGateway;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+@Repository
+@Primary
 public class BankAccountInMemoryDB implements BankAccountGateway {
     private static Map accountDB = new HashMap();
 

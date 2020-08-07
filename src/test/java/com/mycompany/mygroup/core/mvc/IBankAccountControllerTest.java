@@ -1,6 +1,5 @@
 package com.mycompany.mygroup.core.mvc;
 
-import com.mycompany.mygroup.core.infradi.DependencyResolver;
 import com.mycompany.mygroup.core.usecase.ResponseModel;
 import junit.framework.TestCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,13 @@ import javax.management.InstanceNotFoundException;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.runner.RunWith;
+import org.junit.Test;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class IBankAccountControllerTest extends TestCase {
     @Autowired
     private IBankAccountController controller;
@@ -30,6 +35,7 @@ public class IBankAccountControllerTest extends TestCase {
     public IBankAccountControllerTest() throws InstanceNotFoundException {
     }
 
+    @Test
     public void testWithdraw() {
         for (Map.Entry<Integer, String> entry : withdrawTestCaseMap.entrySet()) {
             // Run test
@@ -39,6 +45,7 @@ public class IBankAccountControllerTest extends TestCase {
         }
     }
 
+    @Test
     public void testDeposit() {
         for (Map.Entry<Integer, String> entry : withdrawTestCaseMap.entrySet()) {
             // Run test

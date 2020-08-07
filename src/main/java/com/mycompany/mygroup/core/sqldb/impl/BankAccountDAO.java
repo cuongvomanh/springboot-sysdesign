@@ -5,9 +5,11 @@ import com.mycompany.mygroup.core.gateway.BankAccountGateway;
 import com.mycompany.mygroup.core.gateway.EntityGateway;
 import com.mycompany.mygroup.core.mapper.BankAccountMapper;
 import com.mycompany.mygroup.core.sqldb.GenericDAO;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class BankAccountDAO extends AbstractDAO<BankAccount> implements BankAccountGateway, GenericDAO<BankAccount> {
     @Override
     public BankAccount getByNumber(String number) {

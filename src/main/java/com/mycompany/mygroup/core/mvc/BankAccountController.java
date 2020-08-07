@@ -4,12 +4,14 @@ import com.mycompany.mygroup.core.infradi.DependencyResolver;
 import com.mycompany.mygroup.core.usecase.RequestModel;
 import com.mycompany.mygroup.core.usecase.ResponseModel;
 import com.mycompany.mygroup.core.usecase.account.BankAccountBoundary;
-import org.springframework.stereotype.Service;
 
 import javax.management.InstanceNotFoundException;
 import java.math.BigDecimal;
+import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Primary;
 
-@Service
+@Component
+@Primary
 public class BankAccountController implements IBankAccountController {
     private BankAccountBoundary bankAccountBoundary;
 

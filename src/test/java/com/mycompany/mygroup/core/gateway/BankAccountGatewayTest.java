@@ -1,13 +1,18 @@
 package com.mycompany.mygroup.core.gateway;
 
 import com.mycompany.mygroup.core.entity.BankAccount;
-import com.mycompany.mygroup.core.infradi.DependencyResolver;
 import junit.framework.TestCase;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.management.InstanceNotFoundException;
 import java.math.BigDecimal;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class BankAccountGatewayTest extends TestCase {
     @Autowired
     private BankAccountGateway bankAccountGateway;
@@ -21,6 +26,7 @@ public class BankAccountGatewayTest extends TestCase {
         bankAccount.setBalance(new BigDecimal(100));
     }
 
+    @Test
     public void testGetByNumber() {
         // Setup
         createBankAccount();
@@ -31,6 +37,7 @@ public class BankAccountGatewayTest extends TestCase {
         assertEquals(bankAccountResult.getNumber(), "001");
     }
 
+    @Test
     public void testSave() {
         // Setup
         createBankAccount();
