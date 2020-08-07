@@ -18,7 +18,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
 public class BankAccountBoundaryTest extends TestCase {
     @TestConfiguration
     public static class BankAccountBoundaryTestConfiguration {
