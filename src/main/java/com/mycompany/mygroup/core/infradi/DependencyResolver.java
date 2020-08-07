@@ -7,7 +7,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class DependencyResolver {
-    private static final String IOC_CONFIGURATION_FILE_NAME = "/home/cuong/Staff/sysdesign/ioc.properties";
+    private static final String IOC_CONFIGURATION_FILE_NAME = "/home/cuong/Staff/try/sysdesign/sysdesign/ioc.properties";
     public static Object getInstance(String key) throws InstanceNotFoundException {
         try (InputStream input = new FileInputStream(IOC_CONFIGURATION_FILE_NAME)) {
             Properties prop = new Properties();
