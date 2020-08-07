@@ -2,13 +2,17 @@ package com.mycompany.mygroup.core.usecase.account;
 
 import com.mycompany.mygroup.core.usecase.RequestModel;
 import com.mycompany.mygroup.core.usecase.ResponseModel;
+import com.mycompany.mygroup.core.usecase.account.interactor.BankAccountInteractor;
 import junit.framework.TestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.management.InstanceNotFoundException;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +20,13 @@ import java.util.Map;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class BankAccountBoundaryTest extends TestCase {
+    @TestConfiguration
+    public static class BankAccountBoundaryTestConfiguration {
+        @Bean
+        BankAccountInteractor bankAccountBoundary() throws InstanceNotFoundException {
+            return new BankAccountInteractor();
+        }
+    }
     @Autowired
     private BankAccountBoundary bankAccountBoundary;
     private final String WITHDRAW_SUCCESSFUL = "Withdraw Successful!";

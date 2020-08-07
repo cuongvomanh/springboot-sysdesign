@@ -9,13 +9,21 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.junit.runner.RunWith;
 import org.junit.Test;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
 public class IBankAccountControllerTest extends TestCase {
+    @TestConfiguration
+    public static class IBankAccountControllerTestConfiguration {
+        @Bean
+        IBankAccountController bankAccountController() throws InstanceNotFoundException {
+            return new BankAccountController();
+        }
+    }
     @Autowired
     private IBankAccountController controller;
     private final String SUCCESSFUL_PATTERN = ".*Success.*|200";
