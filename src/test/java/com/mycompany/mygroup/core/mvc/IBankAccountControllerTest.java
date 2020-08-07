@@ -1,6 +1,10 @@
 package com.mycompany.mygroup.core.mvc;
 
+import com.mycompany.mygroup.core.db.BankAccountInMemoryDB;
+import com.mycompany.mygroup.core.gateway.BankAccountGateway;
 import com.mycompany.mygroup.core.usecase.ResponseModel;
+import com.mycompany.mygroup.core.usecase.account.BankAccountPresentBoundary;
+import com.mycompany.mygroup.core.usecase.account.interactor.BankAccountInteractor;
 import junit.framework.TestCase;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -22,6 +26,18 @@ public class IBankAccountControllerTest extends TestCase {
         @Bean
         IBankAccountController bankAccountController() throws InstanceNotFoundException {
             return new BankAccountController();
+        }
+        @Bean
+        BankAccountInteractor bankAccountBoundary() throws InstanceNotFoundException {
+            return new BankAccountInteractor();
+        }
+        @Bean
+        BankAccountGateway bankAccountGateway() {
+            return new BankAccountInMemoryDB();
+        }
+        @Bean
+        BankAccountPresentBoundary bankAccountPresentBoundary() {
+            return new BankAccountPresenter();
         }
     }
     @Autowired

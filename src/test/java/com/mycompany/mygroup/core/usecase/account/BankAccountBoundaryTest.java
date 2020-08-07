@@ -1,5 +1,8 @@
 package com.mycompany.mygroup.core.usecase.account;
 
+import com.mycompany.mygroup.core.db.BankAccountInMemoryDB;
+import com.mycompany.mygroup.core.gateway.BankAccountGateway;
+import com.mycompany.mygroup.core.mvc.BankAccountPresenter;
 import com.mycompany.mygroup.core.usecase.RequestModel;
 import com.mycompany.mygroup.core.usecase.ResponseModel;
 import com.mycompany.mygroup.core.usecase.account.interactor.BankAccountInteractor;
@@ -25,6 +28,15 @@ public class BankAccountBoundaryTest extends TestCase {
         BankAccountInteractor bankAccountBoundary() throws InstanceNotFoundException {
             return new BankAccountInteractor();
         }
+        @Bean
+        BankAccountGateway bankAccountGateway() {
+            return new BankAccountInMemoryDB();
+        }
+        @Bean
+        BankAccountPresentBoundary bankAccountPresentBoundary() {
+            return new BankAccountPresenter();
+        }
+
     }
     @Autowired
     private BankAccountBoundary bankAccountBoundary;

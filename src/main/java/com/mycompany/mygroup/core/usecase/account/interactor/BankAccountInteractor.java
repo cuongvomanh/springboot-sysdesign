@@ -2,23 +2,23 @@ package com.mycompany.mygroup.core.usecase.account.interactor;
 
 import com.mycompany.mygroup.core.entity.BankAccount;
 import com.mycompany.mygroup.core.gateway.BankAccountGateway;
-import com.mycompany.mygroup.core.infradi.DependencyResolver;
 import com.mycompany.mygroup.core.usecase.RequestModel;
 import com.mycompany.mygroup.core.usecase.ResponseModel;
 import com.mycompany.mygroup.core.usecase.account.BankAccountBoundary;
 import com.mycompany.mygroup.core.usecase.account.BankAccountPresentBoundary;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.management.InstanceNotFoundException;
 
 @Service
 public class BankAccountInteractor implements BankAccountBoundary {
+    @Autowired
     private BankAccountGateway bankAccountGateway;
+    @Autowired
     private BankAccountPresentBoundary bankAccountPresentBoundary;
 
     public BankAccountInteractor() throws InstanceNotFoundException {
-        this.bankAccountGateway = (BankAccountGateway) DependencyResolver.getInstance("BankAccountGateway");
-        this.bankAccountPresentBoundary = (BankAccountPresentBoundary) DependencyResolver.getInstance("BankAccountPresentBoundary");
     }
 
     public ResponseModel withdraw(RequestModel request) {
