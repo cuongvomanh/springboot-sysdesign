@@ -1,10 +1,10 @@
 package com.mycompany.mygroup.core.entity;
 
-import junit.framework.TestCase;
-
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
+
+import junit.framework.TestCase;
 
 public class BankAccountTest extends TestCase {
     private BankAccount bankAccount = new BankAccount();

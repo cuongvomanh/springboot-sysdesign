@@ -1,23 +1,25 @@
 package com.mycompany.mygroup.core.mvc;
 
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.management.InstanceNotFoundException;
+
 import com.mycompany.mygroup.core.db.BankAccountInMemoryDB;
 import com.mycompany.mygroup.core.gateway.BankAccountGateway;
 import com.mycompany.mygroup.core.usecase.ResponseModel;
 import com.mycompany.mygroup.core.usecase.account.BankAccountPresentBoundary;
 import com.mycompany.mygroup.core.usecase.account.interactor.BankAccountInteractor;
-import junit.framework.TestCase;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.management.InstanceNotFoundException;
-import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.junit.runner.RunWith;
-import org.junit.Test;
+
+import junit.framework.TestCase;
 
 @RunWith(SpringRunner.class)
 public class IBankAccountControllerTest extends TestCase {
