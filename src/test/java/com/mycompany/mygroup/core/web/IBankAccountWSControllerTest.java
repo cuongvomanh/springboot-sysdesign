@@ -3,29 +3,20 @@ package com.mycompany.mygroup.core.web;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.management.InstanceNotFoundException;
 
 import com.mycompany.mygroup.core.commons.BankAccountMessageConstant;
-import com.mycompany.mygroup.core.db.BankAccountInMemoryDB;
 import com.mycompany.mygroup.core.exceptions.BankAccountBadRequestException;
-import com.mycompany.mygroup.core.gateway.BankAccountGateway;
 import com.mycompany.mygroup.core.mvc.BankAccountController;
-import com.mycompany.mygroup.core.mvc.BankAccountPresenter;
 import com.mycompany.mygroup.core.mvc.IBankAccountController;
 import com.mycompany.mygroup.core.usecase.RequestModel;
 import com.mycompany.mygroup.core.usecase.ResponseModel;
 import com.mycompany.mygroup.core.usecase.account.BankAccountBoundary;
-import com.mycompany.mygroup.core.usecase.account.BankAccountPresentBoundary;
-import com.mycompany.mygroup.core.usecase.account.interactor.BankAccountInteractor;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.TestConfiguration;
