@@ -1,0 +1,5 @@
+bankaccountmessage:
+  withdraw_failed: "Withdraw Failed!"
+  deposit_failed: "Deposit Failed!"
+  withdraw_successful: "Withdraw Successful!"
+  deposit_successful: "Deposit Successful!"

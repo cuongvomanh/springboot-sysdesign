@@ -27,8 +27,15 @@ public class BankAccountWSController implements IBankAccountWSController {
     }
 
     @PostMapping("/withdraw")
-    public ResponseEntity<ResponseModel> doPost(@RequestBody RequestModel requestModel) throws ServletException, IOException {
+    public ResponseEntity<ResponseModel> withdraw(@RequestBody RequestModel requestModel) throws ServletException, IOException {
         ResponseModel responseModel = this.bankAccountBoundary.withdraw(requestModel);
+        return ResponseEntity.ok()
+            .body(responseModel);
+    }
+
+    @PostMapping("/deposit")
+    public ResponseEntity<ResponseModel> deposit(@RequestBody RequestModel requestModel) throws ServletException, IOException {
+        ResponseModel responseModel = this.bankAccountBoundary.deposit(requestModel);
         return ResponseEntity.ok()
             .body(responseModel);
     }

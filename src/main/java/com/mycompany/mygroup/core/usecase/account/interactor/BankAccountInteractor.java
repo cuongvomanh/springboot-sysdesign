@@ -1,15 +1,18 @@
 package com.mycompany.mygroup.core.usecase.account.interactor;
 
+import javax.management.InstanceNotFoundException;
+
+import com.mycompany.mygroup.core.commons.BankAccountMessageConstant;
 import com.mycompany.mygroup.core.entity.BankAccount;
+import com.mycompany.mygroup.core.exceptions.BankAccountBadRequestException;
 import com.mycompany.mygroup.core.gateway.BankAccountGateway;
 import com.mycompany.mygroup.core.usecase.RequestModel;
 import com.mycompany.mygroup.core.usecase.ResponseModel;
 import com.mycompany.mygroup.core.usecase.account.BankAccountBoundary;
 import com.mycompany.mygroup.core.usecase.account.BankAccountPresentBoundary;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.management.InstanceNotFoundException;
 
 @Service
 public class BankAccountInteractor implements BankAccountBoundary {
@@ -17,6 +20,8 @@ public class BankAccountInteractor implements BankAccountBoundary {
     private BankAccountGateway bankAccountGateway;
     @Autowired
     private BankAccountPresentBoundary bankAccountPresentBoundary;
+    @Autowired
+    private BankAccountMessageConstant bankAccountMessageConstant;
 
     public BankAccountInteractor() throws InstanceNotFoundException {
     }
@@ -28,11 +33,11 @@ public class BankAccountInteractor implements BankAccountBoundary {
         if (withdrawResult) {
             bankAccountGateway.save(account);
             response.setResult("Withdraw Successful!");
+            this.bankAccountPresentBoundary.accept();
+            return response;
         } else {
-            response.setResult("Withdraw Failed!");
+            throw new BankAccountBadRequestException(bankAccountMessageConstant.getWithdrawFailed());
         }
-        this.bankAccountPresentBoundary.accept();
-        return response;
     }
 
     public ResponseModel deposit(RequestModel request) {
@@ -42,9 +47,9 @@ public class BankAccountInteractor implements BankAccountBoundary {
         if (depositResult) {
             bankAccountGateway.save(account);
             response.setResult("Deposit Successful!");
+            return response;
         } else {
-            response.setResult("Deposit Failed!");
+            throw new BankAccountBadRequestException(bankAccountMessageConstant.getDepositFailed());
         }
-        return response;
     }
 }
