@@ -57,13 +57,9 @@ public class BankAccountInMemoryDB implements BankAccountGateway {
 
     @Override
     public Long save(BankAccount entity) {
-        try {
-            System.out.println("Save BankAccount");
-            accountDB.put(entity.getId(), entity);
-            return 1L;
-        } catch (Exception e) {
-            return 0L;
-        }
+      System.out.println("Save BankAccount");
+      accountDB.put(entity.getId(), entity);
+      return 1L;
     }
 
 

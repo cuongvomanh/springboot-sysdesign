@@ -32,7 +32,7 @@ public class BankAccountInteractor implements BankAccountBoundary {
         ResponseModel response = new ResponseModel();
         if (withdrawResult) {
             bankAccountGateway.save(account);
-            response.setResult("Withdraw Successful!");
+            response.setResult(bankAccountMessageConstant.getWithdrawSuccessful());
             this.bankAccountPresentBoundary.accept();
             return response;
         } else {
@@ -46,7 +46,7 @@ public class BankAccountInteractor implements BankAccountBoundary {
         ResponseModel response = new ResponseModel();
         if (depositResult) {
             bankAccountGateway.save(account);
-            response.setResult("Deposit Successful!");
+            response.setResult(bankAccountMessageConstant.getDepositSuccessful());
             return response;
         } else {
             throw new BankAccountBadRequestException(bankAccountMessageConstant.getDepositFailed());
