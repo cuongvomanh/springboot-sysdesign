@@ -11,8 +11,12 @@ import com.mycompany.mygroup.core.usecase.ResponseModel;
 import com.mycompany.mygroup.core.usecase.account.BankAccountBoundary;
 import com.mycompany.mygroup.core.usecase.account.BankAccountPresentBoundary;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.sql.SQLException;
 
 @Service
 public class BankAccountInteractor implements BankAccountBoundary {
@@ -23,25 +27,38 @@ public class BankAccountInteractor implements BankAccountBoundary {
     @Autowired
     private BankAccountMessageConstant bankAccountMessageConstant;
 
-    public BankAccountInteractor() throws InstanceNotFoundException {
+    private static Logger LOGGER = LoggerFactory.getLogger(BankAccountBoundary.class);
+
+    public BankAccountInteractor() {
     }
 
     public ResponseModel withdraw(RequestModel request) {
         BankAccount account = bankAccountGateway.getByNumber(request.getAccountNumber());
+        if (account == null){
+            throw new BankAccountBadRequestException(bankAccountMessageConstant.getWithdrawBadRequestNotFound());
+        }
         boolean withdrawResult = account.withdraw(request.getAmmount());
         ResponseModel response = new ResponseModel();
         if (withdrawResult) {
-            bankAccountGateway.save(account);
+            try {
+                bankAccountGateway.save(account);
+            } catch (Exception exception){
+                LOGGER.error("Exception", exception);
+                throw exception;
+            }
             response.setResult(bankAccountMessageConstant.getWithdrawSuccessful());
             this.bankAccountPresentBoundary.accept();
             return response;
         } else {
-            throw new BankAccountBadRequestException(bankAccountMessageConstant.getWithdrawFailed());
+            throw new BankAccountBadRequestException(bankAccountMessageConstant.getWithdrawBadRequest());
         }
     }
 
     public ResponseModel deposit(RequestModel request) {
         BankAccount account = bankAccountGateway.getByNumber(request.getAccountNumber());
+        if (account == null){
+            throw new BankAccountBadRequestException(bankAccountMessageConstant.getDepositRequestNotFound());
+        }
         boolean depositResult = account.deposit(request.getAmmount());
         ResponseModel response = new ResponseModel();
         if (depositResult) {
@@ -49,7 +66,7 @@ public class BankAccountInteractor implements BankAccountBoundary {
             response.setResult(bankAccountMessageConstant.getDepositSuccessful());
             return response;
         } else {
-            throw new BankAccountBadRequestException(bankAccountMessageConstant.getDepositFailed());
+            throw new BankAccountBadRequestException(bankAccountMessageConstant.getDepositBadRequest());
         }
     }
 }

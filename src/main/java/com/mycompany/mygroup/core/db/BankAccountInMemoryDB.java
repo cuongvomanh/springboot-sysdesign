@@ -5,6 +5,7 @@ import com.mycompany.mygroup.core.gateway.BankAccountGateway;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -13,31 +14,26 @@ import java.util.Map;
 @Repository
 @Primary
 public class BankAccountInMemoryDB implements BankAccountGateway {
-    private static Map accountDB = new HashMap();
+    private Map accountDB;
 
-    static {
-        {
-            BankAccount account = new BankAccount();
-            account.setId(1L);
-            account.setNumber("001");
-            account.setBalance(BigDecimal.valueOf(100000));
-            accountDB.put(1L, account);
-        }
-        {
-            BankAccount account = new BankAccount();
-            account.setId(2L);
-            account.setNumber("002");
-            account.setBalance(BigDecimal.valueOf(500000));
-            accountDB.put(2L, account);
-        }
-        {
-            BankAccount account = new BankAccount();
-            account.setId(3L);
-            account.setNumber("003");
-            account.setBalance(BigDecimal.valueOf(700000));
-            accountDB.put(3L, account);
-        }
-
+    @PostConstruct
+    private void init() {
+        accountDB = new HashMap();
+        BankAccount account1 = new BankAccount();
+        account1.setId(1L);
+        account1.setNumber("001");
+        account1.setBalance(BigDecimal.valueOf(100000));
+        accountDB.put(1L, account1);
+        BankAccount account2 = new BankAccount();
+        account2.setId(2L);
+        account2.setNumber("002");
+        account2.setBalance(BigDecimal.valueOf(500000));
+        accountDB.put(2L, account2);
+        BankAccount account3 = new BankAccount();
+        account3.setId(3L);
+        account3.setNumber("003");
+        account3.setBalance(BigDecimal.valueOf(700000));
+        accountDB.put(3L, account3);
     }
 
     public BankAccountInMemoryDB() {
@@ -56,10 +52,15 @@ public class BankAccountInMemoryDB implements BankAccountGateway {
     }
 
     @Override
-    public Long save(BankAccount entity) {
-      System.out.println("Save BankAccount");
-      accountDB.put(entity.getId(), entity);
-      return 1L;
+    public BankAccount save(BankAccount entity) {
+        System.out.println("Save BankAccount");
+        try {
+            accountDB.put(entity.getId(), entity);
+            return entity;
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return null;
     }
 
 

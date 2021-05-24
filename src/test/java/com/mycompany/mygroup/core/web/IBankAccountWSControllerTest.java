@@ -71,7 +71,7 @@ public class IBankAccountWSControllerTest {
               .post("/bankAccount/withdraw")
               .contentType(MediaType.APPLICATION_JSON)
               .content(input))
-            .andExpect(status().isInternalServerError());
+            .andExpect(status().isBadRequest());
         } catch (Exception e) {
             assert true;
         }
@@ -102,7 +102,7 @@ public class IBankAccountWSControllerTest {
               .post("/bankAccount/withdraw")
               .contentType(MediaType.APPLICATION_JSON)
               .content(input))
-            .andExpect(status().isInternalServerError());
+            .andExpect(status().isBadRequest());
         } catch (Exception e) {
             assert true;
         }

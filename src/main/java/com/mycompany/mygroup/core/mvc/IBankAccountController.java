@@ -6,5 +6,6 @@ import java.math.BigDecimal;
 
 public interface IBankAccountController {
     public ResponseModel withdraw(String accountNumber, BigDecimal amount);
+
     public ResponseModel deposit(String accountNumber, BigDecimal amount);
 }

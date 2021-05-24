@@ -17,10 +17,11 @@ public class BankAccountDAO extends AbstractDAO<BankAccount> implements BankAcco
     }
 
     @Override
-	public Long save(BankAccount bankAccount) {
+	public BankAccount save(BankAccount bankAccount) {
 		StringBuilder sql = new StringBuilder("INSERT INTO bank_account (nnumber, balance)");
 		sql.append(" VALUES(?, ?)");
-		return insert(sql.toString(), bankAccount.getNumber(), bankAccount.getBalance().intValue());
+		insert(sql.toString(), bankAccount.getNumber(), bankAccount.getBalance().intValue());
+		return bankAccount;
 	}
 
 	@Override

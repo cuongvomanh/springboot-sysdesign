@@ -51,7 +51,7 @@ public class BankAccountBoundaryTest extends TestCase {
     @Test
     public void withdraw_IfWithdrawBankAccountSuccessful_ReturnResponseSuccessful() {
         when(bankAccountGateway.getByNumber(Mockito.isA(String.class))).thenReturn(bankAccount);
-        when(bankAccountGateway.save(Mockito.isA(BankAccount.class))).thenReturn(1L);
+        when(bankAccountGateway.save(Mockito.isA(BankAccount.class))).thenReturn(bankAccount);
         when(bankAccount.withdraw(Mockito.isA(BigDecimal.class))).thenReturn(true);
         when(bankAccountMessageConstant.getWithdrawSuccessful()).thenReturn("Sucessful");
         RequestModel requestModel = new RequestModel("001", new BigDecimal(1));
@@ -62,7 +62,7 @@ public class BankAccountBoundaryTest extends TestCase {
     @Test
     public void withdraw_IfWithdrawBankAccountFailed_ReturnResponseFailed() {
         when(bankAccountGateway.getByNumber(Mockito.isA(String.class))).thenReturn(bankAccount);
-        when(bankAccountGateway.save(Mockito.isA(BankAccount.class))).thenReturn(1L);
+        when(bankAccountGateway.save(Mockito.isA(BankAccount.class))).thenReturn(bankAccount);
         when(bankAccount.withdraw(Mockito.isA(BigDecimal.class))).thenReturn(false);
         when(bankAccountMessageConstant.getWithdrawFailed()).thenReturn("Failed");
         RequestModel requestModel = new RequestModel("001", new BigDecimal(1));
@@ -91,7 +91,7 @@ public class BankAccountBoundaryTest extends TestCase {
     @Test
     public void deposit_IfDepositBankAccountSuccessful_ReturnResponseSuccessful() {
         when(bankAccountGateway.getByNumber(Mockito.isA(String.class))).thenReturn(bankAccount);
-        when(bankAccountGateway.save(Mockito.isA(BankAccount.class))).thenReturn(1L);
+        when(bankAccountGateway.save(Mockito.isA(BankAccount.class))).thenReturn(bankAccount);
         when(bankAccount.deposit(Mockito.isA(BigDecimal.class))).thenReturn(true);
         when(bankAccountMessageConstant.getDepositSuccessful()).thenReturn("Sucessful");
         RequestModel requestModel = new RequestModel("001", new BigDecimal(1));
@@ -102,7 +102,7 @@ public class BankAccountBoundaryTest extends TestCase {
     @Test
     public void deposit_IfDepositBankAccountFailed_ReturnResponseFailed() {
         when(bankAccountGateway.getByNumber(Mockito.isA(String.class))).thenReturn(bankAccount);
-        when(bankAccountGateway.save(Mockito.isA(BankAccount.class))).thenReturn(1L);
+        when(bankAccountGateway.save(Mockito.isA(BankAccount.class))).thenReturn(bankAccount);
         when(bankAccount.deposit(Mockito.isA(BigDecimal.class))).thenReturn(false);
         when(bankAccountMessageConstant.getDepositFailed()).thenReturn("Failed");
         RequestModel requestModel = new RequestModel("001", new BigDecimal(1));
